@@ -8,6 +8,8 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _domready = _interopRequireDefault(require("@mikaelkristiansson/domready"));
 
+var _socket = _interopRequireDefault(require("socket.io-client"));
+
 var _socketIo = _interopRequireDefault(require("./socketIo"));
 
 var _emitter = _interopRequireDefault(require("./emitter"));
@@ -18,9 +20,9 @@ var _loader = require("./loader");
 
 var _devLoader = _interopRequireDefault(require("./dev-loader"));
 
-var _syncRequires = _interopRequireDefault(require("./sync-requires"));
+var _syncRequires = _interopRequireDefault(require("$virtual/sync-requires"));
 
-var _matchPaths = _interopRequireDefault(require("./match-paths.json"));
+var _matchPaths = _interopRequireDefault(require("$virtual/match-paths.json"));
 
 // Generated during bootstrap
 window.___emitter = _emitter.default;
@@ -38,6 +40,32 @@ window.___loader = _loader.publicLoader; // Let the site/plugins run code very e
       window.location.reload();
     });
   }
+
+  fetch(`/___services`).then(res => res.json()).then(services => {
+    if (services.developstatusserver) {
+      let isRestarting = false;
+      const parentSocket = (0, _socket.default)(`http://${window.location.hostname}:${services.developstatusserver.port}`);
+      parentSocket.on(`structured-log`, msg => {
+        if (!isRestarting && msg.type === `LOG_ACTION` && msg.action.type === `DEVELOP` && msg.action.payload === `RESTART_REQUIRED` && window.confirm(`The develop process needs to be restarted for the changes to ${msg.action.dirtyFile} to be applied.\nDo you want to restart the develop process now?`)) {
+          isRestarting = true;
+          parentSocket.emit(`develop:restart`, () => {
+            window.location.reload();
+          });
+        }
+
+        if (isRestarting && msg.type === `LOG_ACTION` && msg.action.type === `SET_STATUS` && msg.action.payload === `SUCCESS`) {
+          isRestarting = false;
+          window.location.reload();
+        }
+      }); // Prevents certain browsers spamming XHR 'ERR_CONNECTION_REFUSED'
+      // errors within the console, such as when exiting the develop process.
+
+      parentSocket.on(`disconnect`, () => {
+        console.warn(`[socket.io] Disconnected. Unable to perform health-check.`);
+        parentSocket.close();
+      });
+    }
+  });
   /**
    * Service Workers are persistent by nature. They stick around,
    * serving a cached version of the site if they aren't removed.
@@ -46,7 +74,6 @@ window.___loader = _loader.publicLoader; // Let the site/plugins run code very e
    *
    * Let's warn if we find service workers in development.
    */
-
 
   if (`serviceWorker` in navigator) {
     navigator.serviceWorker.getRegistrations().then(registrations => {
