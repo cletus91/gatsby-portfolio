@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Title from './Title';
 import { FaAngleDoubleRight } from 'react-icons/fa';
 import { graphql, useStaticQuery } from 'gatsby';
-import { Link } from 'gatsby';
 
 const query = graphql`
 	{
@@ -27,7 +26,6 @@ const Jobs = () => {
 	const {
 		allStrapiJobs: { nodes: jobs },
 	} = data;
-
 	const [value, setValue] = useState(0);
 	const { company, date, description: desc, position } = jobs[value];
 
