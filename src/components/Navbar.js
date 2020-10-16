@@ -11,6 +11,7 @@ const Navbar = ({ sidebarToggle }) => {
 					<img
 						src={logo}
 						style={{ width: '50px', height: '50px', top: '0', left: '0' }}
+						alt='profile-avatar'
 					/>
 					<button type='button' className='toggle-btn' onClick={sidebarToggle}>
 						<FaAlignRight></FaAlignRight>

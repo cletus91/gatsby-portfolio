@@ -4,6 +4,9 @@ var plugins = [{
     },{
       plugin: require('/Users/cletusdias/Desktop/My Projects/gatsby-portfolio/node_modules/gatsby-plugin-sitemap/gatsby-ssr'),
       options: {"plugins":[]},
+    },{
+      plugin: require('/Users/cletusdias/Desktop/My Projects/gatsby-portfolio/node_modules/gatsby-plugin-prefetch-google-fonts/gatsby-ssr'),
+      options: {"plugins":[],"fonts":[{"family":"Poppins","variants":["400","700"]},{"family":"Open Sans"}]},
     }]
 // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [

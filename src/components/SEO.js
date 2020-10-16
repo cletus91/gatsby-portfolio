@@ -1,9 +1,9 @@
-import React from "react"
-import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import React from 'react';
+// import { Helmet } from "react-helmet"
+// import { useStaticQuery, graphql } from "gatsby"
 
 const SEO = () => {
-  return <div>SEO Component</div>
-}
+	return <div>SEO Component</div>;
+};
 
-export default SEO
+export default SEO;

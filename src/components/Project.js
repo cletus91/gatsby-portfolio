@@ -19,12 +19,17 @@ const Project = ({ title, github, description, stack, url, image, index }) => {
 						);
 					})}
 					<div className='project-links'>
-						<a href={github}>
-							<FaGithubSquare className='project-icon' />
-						</a>
-						<a href={url}>
-							<FaShareSquare className='project-icon' />
-						</a>
+						{github && (
+							<a href={github}>
+								<FaGithubSquare className='project-icon' />
+							</a>
+						)}
+
+						{url && (
+							<a href={url}>
+								<FaShareSquare className='project-icon' />
+							</a>
+						)}
 					</div>
 				</div>
 			</div>
@@ -35,7 +40,7 @@ const Project = ({ title, github, description, stack, url, image, index }) => {
 Project.propTypes = {
 	title: PropTypes.string.isRequired,
 	github: PropTypes.string.isRequired,
-	url: PropTypes.string.isRequired,
+	// url: PropTypes.string.isRequired,
 	description: PropTypes.string.isRequired,
 	stack: PropTypes.arrayOf(PropTypes.object).isRequired,
 	image: PropTypes.object.isRequired,

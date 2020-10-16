@@ -9,14 +9,14 @@ const About = ({
 		about: { nodes },
 	},
 }) => {
-	const { info, title, image, stack } = nodes[0];
+	const { info, image, stack } = nodes[0];
 	return (
 		<Layout>
 			<section className='about-page'>
 				<div className='section-center about-center'>
 					<Image fluid={image.childImageSharp.fluid} className='about-img'></Image>
 					<article className='about-text'>
-						<Title title={title} />
+						<Title title='Web Developer && Dog Lover' />
 						<p>{info}</p>
 						<div className='about-stack'>
 							{stack.map((item) => {
