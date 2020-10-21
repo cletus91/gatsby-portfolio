@@ -260,19 +260,19 @@ class RouteUpdates extends _react.default.Component {
     onRouteUpdate(this.props.location, null);
   }
 
-  componentDidUpdate(prevProps, prevState, shouldFireRouteUpdate) {
-    if (shouldFireRouteUpdate) {
-      onRouteUpdate(this.props.location, prevProps.location);
-    }
-  }
-
-  getSnapshotBeforeUpdate(prevProps) {
+  shouldComponentUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       onPreRouteUpdate(this.props.location, prevProps.location);
       return true;
     }
 
     return false;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      onRouteUpdate(this.props.location, prevProps.location);
+    }
   }
 
   render() {
