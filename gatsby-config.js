@@ -5,7 +5,7 @@ module.exports = {
 		author: '@cletusdias',
 		twitterUsername: '@cletus7',
 		image: '/twitter-card.png',
-		siteUrl: 'https://testing-strapi-gatsby-build.netlify.app',
+		siteUrl: 'https://www.cletusdias.com',
 	},
 	plugins: [
 		`gatsby-transformer-sharp`,
@@ -29,17 +29,9 @@ module.exports = {
 			},
 		},
 		{
-			resolve: `gatsby-plugin-prefetch-google-fonts`,
+			resolve: `gatsby-plugin-google-fonts`,
 			options: {
-				fonts: [
-					{
-						family: `Poppins`,
-						variants: [`400`, `700`],
-					},
-					{
-						family: `Open Sans`,
-					},
-				],
+				fonts: [`Poppins`, `Open Sans\:400,700`],
 			},
 		},
 		{
