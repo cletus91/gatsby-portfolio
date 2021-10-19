@@ -1,3 +1,5 @@
+// import 'dotenv/config';
+
 module.exports = {
 	siteMetadata: {
 		title: 'CD Portfolio',
@@ -22,7 +24,7 @@ module.exports = {
 		{
 			resolve: `gatsby-source-strapi`,
 			options: {
-				apiURL: `http://localhost:1337`,
+				apiURL: `https://cletus-portfolio-backend.herokuapp.com`,
 				queryLimit: 1000,
 				contentTypes: [`projects`, `jobs`],
 				singleTypes: [`about`],
